@@ -30,12 +30,35 @@ header {
     padding: 0;
 }
 
-.sidebar li, .projects>div {
+.sidebar li, .projects>button {
     margin: 10px;
     padding: 10px;
 }
 
-.sidebar li:hover, .projects>div:hover {
+.sidebar li:hover, .projects>button:hover {
     background-color: white;
 }
 
+.addProjectButton.clicked {
+    display: none;
+}
+
+.addProjectForm{
+    display: none;
+}
+
+.addProjectForm.show {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    margin: 10px;
+    padding: 10px;
+}
+
+.addProjectForm input[type=submit]{
+    grid-row: 2/3;
+}
+
+.addProjectForm input[type=text]{
+    grid-column: 1/3;
+}
