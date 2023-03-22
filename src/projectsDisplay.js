@@ -13,7 +13,14 @@ const loadProjects = () => {
 const addAProj = (project) => {
     // making the new project button
     let newProjectButton = document.createElement("button");
-    newProjectButton.textContent = project.name;
+    newProjectButton.classList.add("project-button")
+    let buttonText = document.createElement("p");
+    buttonText.textContent = project.name;
+    newProjectButton.appendChild(buttonText);
+    // making the delete part
+    let deleteButton = document.createElement("button");
+    deleteButton.textContent = "X";
+    newProjectButton.appendChild(deleteButton);
     // putting the project right before the add project button
     projectsSide.insertBefore(newProjectButton, projectAddButton);
 }
