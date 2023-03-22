@@ -7,13 +7,15 @@ const loadProjects = () => {
     // get all the projects from localStorage as an array
     let allProjects = JSON.parse(localStorage.getItem("allProjects") || "[]");
     // for each of the projects, make a new DOM button and add event listeners for those dom buttons
-    allProjects.forEach(project => {
-        // making the DOM
-        let newProjectButton = document.createElement("button");
-        newProjectButton.textContent = project.name;
-        // putting the project right before the add project button
-        projectsSide.insertBefore(newProjectButton, projectAddButton);
-    })
+    allProjects.forEach(project => addAProj(project))
 }
 
-export { loadProjects }
+const addAProj = (project) => {
+    // making the new project button
+    let newProjectButton = document.createElement("button");
+    newProjectButton.textContent = project.name;
+    // putting the project right before the add project button
+    projectsSide.insertBefore(newProjectButton, projectAddButton);
+}
+
+export { loadProjects, addAProj }
