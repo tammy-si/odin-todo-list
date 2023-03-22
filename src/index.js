@@ -1,9 +1,14 @@
 import './style.css';
 import Project from "./project.js";
+import { loadProjects } from './projectsDisplay';
 
 const projectArea = document.querySelector(".project-area");
 const projectTitle = document.querySelector('.project-title');
 const taskList = document.querySelector('.task-list');
+
+// on the window load, make sure to load the projects on the sidebar
+loadProjects();
+
 
 document.querySelector("#inboxButton").addEventListener("click", () => {
     projectTitle.textContent = "Inbox";
@@ -38,7 +43,6 @@ add.addEventListener("click", () => {
     let newName = document.querySelector(".projectNameInput").value;
     // make a new project and put it into the array
     let newProj = new Project(newName);
-    console.log(allProjects)
     allProjects.push(newProj)
     // now store the new array in localStorage
     localStorage.setItem("allProjects", JSON.stringify(allProjects));

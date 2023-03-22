@@ -17,6 +17,7 @@ header {
     padding-left: 30px;
 }
 
+/* for the sidebar */
 .sidebar {
     background-color: #cbd5e1;
     grid-row: 2/ 3;
@@ -39,6 +40,8 @@ header {
     background-color: white;
 }
 
+
+/* project side of the sidebar */
 .addProjectButton.clicked {
     display: none;
 }
@@ -61,4 +64,9 @@ header {
 
 .addProjectForm input[type=text]{
     grid-column: 1/3;
+}
+
+.projects {
+    display: flex;
+    flex-direction: column;
 }
