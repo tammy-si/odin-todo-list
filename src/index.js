@@ -1,6 +1,6 @@
 import './style.css';
-import Project from "./project.js";
 import ProjectsDisplay from './projectsDisplay';
+import Projects from "./projects.js";
 
 const projectArea = document.querySelector(".project-area");
 const projectTitle = document.querySelector('.project-title');
@@ -37,16 +37,11 @@ addProjectButton.addEventListener('click', () => {
 
 // handling the addProject form  add
 add.addEventListener("click", () => {
-    // getting all the projects in local storage and storing it in the array
-    let allProjects = JSON.parse(localStorage.getItem("allProjects") || "[]");
     let newName = document.querySelector(".projectNameInput").value;
     // make a new project and put it into the array
-    let newProj = new Project(newName);
-    allProjects.push(newProj)
+    Projects.add(newName);
     // also make sure to add to display
-    ProjectsDisplay.addAProj(newProj);
-    // now store the new array in localStorage
-    localStorage.setItem("allProjects", JSON.stringify(allProjects));
+    ProjectsDisplay.addAProj(newName);
     // hide the form and show the button
     addProjectButton.classList.toggle("clicked");
     addProjectForm.classList.toggle("show");
