@@ -11,8 +11,8 @@ export default class ProjectsDisplay {
     static loadProjects(changeLocation) {
         // get all the projects from localStorage as an array
         let allProjects = Projects.getProjects();
-        // for each of the projects, make a new DOM button and add event listeners for those dom buttons
-        allProjects.forEach(project => this.addAProj(project.name, changeLocation))
+        // for each of the projects, make a new DOM button and add event listeners for those dom buttons, skip the first inbox project
+        allProjects.slice(1).forEach(project => this.addAProj(project.name, changeLocation))
     }
 
     // name is string, just the name of the project to be added

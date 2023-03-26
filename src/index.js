@@ -92,9 +92,13 @@ addTaskButton.addEventListener('click', () => {
     addTaskForm.classList.toggle("show");
 })
 
-// handling the addProject form  add
+// handling the addTask form  add
 addTask.addEventListener("click", () => {
     let newTaskName = document.querySelector(".taskNameInput").value;
+    // add a task to the current project we're on, find the project we want to add to
+    let project = Projects.find(globals.getLocation());
+    console.log(project);
+
     // hide the form and show the button
     addTaskButton.classList.toggle("clicked");
     addTaskForm.classList.toggle("show");

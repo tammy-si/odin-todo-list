@@ -5,7 +5,7 @@ export default class Projects {
 
     // returns an array of all the projects objects in local Storage
     static getProjects() {
-        return JSON.parse(localStorage.getItem("allProjects") || "[]");
+        return JSON.parse(localStorage.getItem("allProjects") || JSON.stringify([new Project("Inbox")]));
     }
 
     // adding a project called name to the localStorage
