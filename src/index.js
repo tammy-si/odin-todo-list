@@ -6,9 +6,6 @@ const projectArea = document.querySelector(".project-area");
 const projectTitle = document.querySelector('.project-title');
 const taskList = document.querySelector('.task-list');
 
-// on the window load, make sure to load the projects on the sidebar
-ProjectsDisplay.loadProjects();
-
 // making a object for global variables so we don't expose the global variables
 var globals = (function () {
     let curr_location = "Inbox";
@@ -22,21 +19,30 @@ var globals = (function () {
     }
 
     return {
-        getLocation: getLocation,
-        changeLocation: changeLocation
+        getLocation,
+        changeLocation
     }
 })();
 
+// on the window load, make sure to load the projects on the sidebar
+ProjectsDisplay.loadProjects(globals.changeLocation);
+
 document.querySelector("#inboxButton").addEventListener("click", () => {
     projectTitle.textContent = "Inbox";
+    globals.changeLocation("Inbox");
+    document.querySelector(".addTaskButton").classList.remove("clicked");
 });
 
 document.querySelector("#todayButton").addEventListener("click", () => {
     projectTitle.textContent = "Today";
+    globals.changeLocation("Today");
+    document.querySelector(".addTaskButton").classList.add("clicked");
 });
 
 document.querySelector("#weekButton").addEventListener("click", () => {
     projectTitle.textContent = "This week";
+    globals.changeLocation("This-week");
+    document.querySelector(".addTaskButton").classList.add("clicked");
 });
 
 
@@ -58,8 +64,8 @@ add.addEventListener("click", () => {
     let newName = document.querySelector(".projectNameInput").value;
     // make a new project and put it into the array
     Projects.add(newName);
-    // also make sure to add to display
-    ProjectsDisplay.addAProj(newName);
+    // also make sure to add to display, pass in a way to keep track of what project we're on
+    ProjectsDisplay.addAProj(newName, globals.changeLocation);
     // hide the form and show the button
     addProjectButton.classList.toggle("clicked");
     addProjectForm.classList.toggle("show");
@@ -81,7 +87,6 @@ const cancelTask = document.querySelector(".cancelTask");
 
 // add task button 
 addTaskButton.addEventListener('click', () => {
-    console.log(addTaskButton)
     // display the form
     addTaskButton.classList.toggle("clicked");
     addTaskForm.classList.toggle("show");

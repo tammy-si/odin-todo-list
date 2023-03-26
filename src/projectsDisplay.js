@@ -8,16 +8,16 @@ const projectAddButton = document.querySelector('.addProjectButton');
 
 export default class ProjectsDisplay {
     // this one runs when the user loads in or refreshs
-    static loadProjects() {
+    static loadProjects(changeLocation) {
         // get all the projects from localStorage as an array
         let allProjects = Projects.getProjects();
         // for each of the projects, make a new DOM button and add event listeners for those dom buttons
-        allProjects.forEach(project => this.addAProj(project.name))
+        allProjects.forEach(project => this.addAProj(project.name, changeLocation))
     }
 
     // name is string, just the name of the project to be added
     // making the dom stuff for adding a new project
-    static addAProj (name) {
+    static addAProj (name, changeLocation) {
         // making the new project button
         let newProjectButton = document.createElement("button");
         newProjectButton.classList.add("project-button")
@@ -47,6 +47,9 @@ export default class ProjectsDisplay {
             let projectName = parent.querySelector('p').textContent;
             // find the project from Projects class in order to display
             let project = Projects.find(projectName);
+            // here we keep note of what project we're on by changing a global variable with changeLocation
+            changeLocation(projectName);
+            document.querySelector(".addTaskButton").classList.remove("clicked");
             // display the project's task
             TaskDisplay.displayTasks(project)
         });

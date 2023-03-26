@@ -6,7 +6,6 @@ export default class TaskDisplay {
     static displayTasks(project) {
         // changing the title
         projectTitle.textContent = project.name;
-        // making the add task button
-        
+
     }
 }
