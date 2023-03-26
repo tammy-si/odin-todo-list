@@ -42,15 +42,16 @@ header {
 
 
 /* project side of the sidebar */
-.addProjectButton.clicked {
+/* also has the addTask styling */
+.addProjectButton.clicked, .addTaskButton.clicked {
     display: none;
 }
 
-.addProjectForm{
+.addProjectForm, .addTaskForm{
     display: none;
 }
 
-.addProjectForm.show {
+.addProjectForm.show , .addTaskForm.show{
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
@@ -58,11 +59,11 @@ header {
     padding: 10px;
 }
 
-.addProjectForm input[type=submit]{
+.addProjectForm input[type=submit], .addTaskForm input[type=submit]{
     grid-row: 2/3;
 }
 
-.addProjectForm input[type=text]{
+.addProjectForm input[type=text], .addTaskForm input[type=text]{
     grid-column: 1/3;
 }
 
@@ -76,3 +77,5 @@ header {
     justify-content: space-around;
     align-items: center;
 }
+
+/* Task display specific */

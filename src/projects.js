@@ -27,4 +27,8 @@ export default class Projects {
         localStorage.setItem("allProjects", JSON.stringify(newAllProjects));
     }
 
+    static find(projectName) {
+        let allProjects = this.getProjects();
+        return allProjects.find(project => project.name == projectName);
+    }
 }

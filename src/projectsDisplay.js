@@ -1,4 +1,5 @@
 import Projects from "./projects.js";
+import TaskDisplay from "./taskDisplay.js";
 
 // class to handle displaying all the projects on the sidebar
 const projectsSide = document.querySelector(".projects");
@@ -25,7 +26,8 @@ export default class ProjectsDisplay {
         newProjectButton.appendChild(buttonText);
         // making the delete part
         let deleteButton = document.createElement("button");
-        deleteButton.textContent = "X";
+        deleteButton.textContent = "X"; 
+
         // make the deleteButton have dele functionality
         deleteButton.addEventListener("click", (e) => {
             let parent = e.target.parentNode;
@@ -37,6 +39,18 @@ export default class ProjectsDisplay {
             parent.remove();
         });
         newProjectButton.appendChild(deleteButton);
+
+        // when the user actually clicks on the project button do something
+        newProjectButton.addEventListener("click", (event) => {
+            let parent = event.currentTarget;
+            // get the project name from the p tag 
+            let projectName = parent.querySelector('p').textContent;
+            // find the project from Projects class in order to display
+            let project = Projects.find(projectName);
+            // display the project's task
+            TaskDisplay.displayTasks(project)
+        });
+
         // putting the project right before the add project button
         projectsSide.insertBefore(newProjectButton, projectAddButton);
     }
