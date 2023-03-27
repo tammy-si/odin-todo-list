@@ -1,6 +1,8 @@
 import './style.css';
 import ProjectsDisplay from './projectsDisplay';
 import Projects from "./projects.js";
+import Task from "./task.js";
+import Project from "./project.js";
 
 const projectArea = document.querySelector(".project-area");
 const projectTitle = document.querySelector('.project-title');
@@ -95,10 +97,7 @@ addTaskButton.addEventListener('click', () => {
 // handling the addTask form  add
 addTask.addEventListener("click", () => {
     let newTaskName = document.querySelector(".taskNameInput").value;
-    // add a task to the current project we're on, find the project we want to add to
-    let project = Projects.find(globals.getLocation());
-    console.log(project);
-
+    Project.addTask(newTaskName, globals.getLocation());
     // hide the form and show the button
     addTaskButton.classList.toggle("clicked");
     addTaskForm.classList.toggle("show");

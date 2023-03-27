@@ -1,7 +1,7 @@
 export default class Task {
-    constructor(name) {
+    constructor(name, parent) {
         this.name = name;
         this.dueDate = "";
-        this.parentProject = "";
+        this.parentProject = parent;
     }
 }
