@@ -16,10 +16,10 @@ export default class TaskDisplay {
         // get the project based off of that location and display all the tasks
         let project = Projects.find(curr_location);
         // now loop through all the tasks of the project and make some task button
-        project.tasks.forEach(task => this.addATask(task.name));
+        project.tasks.forEach(task => this.addATask(task.name, getLocation));
     }
 
-    static addATask(taskName) {
+    static addATask(taskName, getLocation) {
         let newTaskButton = document.createElement("button");
         newTaskButton.classList.add("task-button")
         let buttonText = document.createElement("p");
@@ -37,10 +37,12 @@ export default class TaskDisplay {
             // get the task name from the p tag 
             let taskName = parent.querySelector('p').textContent;
             // delete from local storage, by calling the class method for Task in project
-            Project.deleteTask(taskName);
+            Project.deleteTask(taskName, getLocation());
             // then delete from DOM
             parent.remove();
         });
+
+        //making a date section
         newTaskButton.appendChild(checkbox);
 
     }

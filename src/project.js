@@ -19,13 +19,15 @@ export default class Project {
         localStorage.setItem("allProjects", JSON.stringify(allProjects));
     }
 
-    static deleteTask(taskName) {
+    static deleteTask(taskName, projectDeleteFrom) {
         // find the task by looking through all the projects.
-        // once the task is found, remove from that project's task list
+        // once we find the parent project, look throught the parent project's tasks and change
         let allProjects = Projects.getProjects();
-        allProjects.map(project => {
-            project.tasks = project.tasks.filter(task => task.name != taskName);
-        })
+        for (let i = 0; i < allProjects.length; i++) {
+            if (allProjects[i].name == projectDeleteFrom) {
+                allProjects[i].tasks = allProjects[i].tasks.filter(task => task.name != taskName);
+            }
+        }
         localStorage.setItem("allProjects", JSON.stringify(allProjects));
     }
 }

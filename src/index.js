@@ -101,7 +101,7 @@ addTask.addEventListener("click", () => {
     let newTaskName = document.querySelector(".taskNameInput").value;
     Project.addTask(newTaskName, globals.getLocation());
     // add the task with display
-    TaskDisplay.addATask(newTaskName);
+    TaskDisplay.addATask(newTaskName, globals.getLocation);
     // hide the form and show the button
     addTaskButton.classList.toggle("clicked");
     addTaskForm.classList.toggle("show");
