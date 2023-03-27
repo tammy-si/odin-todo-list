@@ -41,10 +41,22 @@ export default class TaskDisplay {
             // then delete from DOM
             parent.remove();
         });
-
-        //making a date section
         newTaskButton.appendChild(checkbox);
 
+        // making the date input
+        let dateInput = document.createElement("input")
+        dateInput.type = "date";
+        dateInput.value = Project.getDueDate(taskName, getLocation());
+
+        dateInput.addEventListener("change", (e) => {
+            let parent = e.target.parentNode;
+            // get the task name from the p tag 
+            let taskName = parent.querySelector('p').textContent;
+            // update the project's due date
+            let newDate = dateInput.value;
+            Project.updateDueDate(taskName, getLocation(), newDate);
+        })
+        newTaskButton.appendChild(dateInput);
     }
 
 }

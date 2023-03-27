@@ -30,6 +30,35 @@ export default class Project {
         }
         localStorage.setItem("allProjects", JSON.stringify(allProjects));
     }
+
+    static getDueDate(taskName, projectUpdateFrom) {
+        let allProjects = Projects.getProjects();
+        for (let i = 0; i < allProjects.length; i++) {
+            if (allProjects[i].name == projectUpdateFrom) {
+                // look through the project's tasks
+                for (let j = 0; j < allProjects[i].tasks.length; j++) {
+                    if (allProjects[i].tasks[j].name == taskName) {
+                        return allProjects[i].tasks[j].dueDate;
+                    }
+                }
+            }
+        }
+    }
+
+    static updateDueDate(taskName, projectUpdateFrom, newDate) {
+        let allProjects = Projects.getProjects();
+        for (let i = 0; i < allProjects.length; i++) {
+            if (allProjects[i].name == projectUpdateFrom) {
+                // look through the project's tasks
+                for (let j = 0; j < allProjects[i].tasks.length; j++) {
+                    if (allProjects[i].tasks[j].name == taskName) {
+                        allProjects[i].tasks[j].dueDate = newDate;
+                    }
+                }
+            }
+        }
+        localStorage.setItem("allProjects", JSON.stringify(allProjects));
+    }
 }
 
 
