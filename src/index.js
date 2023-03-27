@@ -3,6 +3,7 @@ import ProjectsDisplay from './projectsDisplay';
 import Projects from "./projects.js";
 import Task from "./task.js";
 import Project from "./project.js";
+import TaskDisplay from './taskDisplay';
 
 const projectArea = document.querySelector(".project-area");
 const projectTitle = document.querySelector('.project-title');
@@ -27,11 +28,12 @@ var globals = (function () {
 })();
 
 // on the window load, make sure to load the projects on the sidebar
-ProjectsDisplay.loadProjects(globals.changeLocation);
+ProjectsDisplay.loadProjects(globals.changeLocation, globals.getLocation);
 
 document.querySelector("#inboxButton").addEventListener("click", () => {
     projectTitle.textContent = "Inbox";
     globals.changeLocation("Inbox");
+    TaskDisplay.displayTasks(globals.getLocation);
     document.querySelector(".addTaskButton").classList.remove("clicked");
 });
 
@@ -67,7 +69,7 @@ add.addEventListener("click", () => {
     // make a new project and put it into the array
     Projects.add(newName);
     // also make sure to add to display, pass in a way to keep track of what project we're on
-    ProjectsDisplay.addAProj(newName, globals.changeLocation);
+    ProjectsDisplay.addAProj(newName, globals.changeLocation, globals.getLocation);
     // hide the form and show the button
     addProjectButton.classList.toggle("clicked");
     addProjectForm.classList.toggle("show");
@@ -98,6 +100,8 @@ addTaskButton.addEventListener('click', () => {
 addTask.addEventListener("click", () => {
     let newTaskName = document.querySelector(".taskNameInput").value;
     Project.addTask(newTaskName, globals.getLocation());
+    // add the task with display
+    TaskDisplay.addATask(newTaskName);
     // hide the form and show the button
     addTaskButton.classList.toggle("clicked");
     addTaskForm.classList.toggle("show");
