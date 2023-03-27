@@ -1,4 +1,6 @@
-import Projects from "./projects";
+import Projects from "./projects.js";
+import Project from "./project.js"
+
 const projectArea = document.querySelector(".project-area");
 const projectTitle = document.querySelector(".project-title");
 const projectTaskList = document.querySelector(".task-list");
@@ -19,11 +21,28 @@ export default class TaskDisplay {
 
     static addATask(taskName) {
         let newTaskButton = document.createElement("button");
-        newTaskButton.classList.add("project-button")
+        newTaskButton.classList.add("task-button")
         let buttonText = document.createElement("p");
         buttonText.textContent = taskName;
         newTaskButton.appendChild(buttonText);
         projectTaskList.appendChild(newTaskButton);
+
+        // making to check box so that user can check off a todo and delete it
+        let checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+
+        // make the deleteButton have dele functionality
+        checkbox.addEventListener("click", (e) => {
+            let parent = e.target.parentNode;
+            // get the task name from the p tag 
+            let taskName = parent.querySelector('p').textContent;
+            // delete from local storage, by calling the class method for Task in project
+            Project.deleteTask(taskName);
+            // then delete from DOM
+            parent.remove();
+        });
+        newTaskButton.appendChild(checkbox);
+
     }
 
 }

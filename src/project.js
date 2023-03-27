@@ -18,6 +18,16 @@ export default class Project {
         // store new info into local storage
         localStorage.setItem("allProjects", JSON.stringify(allProjects));
     }
+
+    static deleteTask(taskName) {
+        // find the task by looking through all the projects.
+        // once the task is found, remove from that project's task list
+        let allProjects = Projects.getProjects();
+        allProjects.map(project => {
+            project.tasks = project.tasks.filter(task => task.name != taskName);
+        })
+        localStorage.setItem("allProjects", JSON.stringify(allProjects));
+    }
 }
 
 
