@@ -29,6 +29,8 @@ var globals = (function () {
 
 // on the window load, make sure to load the projects on the sidebar
 ProjectsDisplay.loadProjects(globals.changeLocation, globals.getLocation);
+// display the inbox tasks onload
+TaskDisplay.displayTasks(globals.getLocation);
 
 document.querySelector("#inboxButton").addEventListener("click", () => {
     projectTitle.textContent = "Inbox";
