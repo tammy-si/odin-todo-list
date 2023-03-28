@@ -74,7 +74,7 @@ export default class TaskDisplay {
         // making the date input
         let dateInput = document.createElement("input")
         dateInput.type = "date";
-        // get from the parent Project instead if it's today or this week
+        // get from the parent Project instead if it's today or this week to find the task's due date
         if (getLocation() == "Today" || getLocation == "This-week") {
             dateInput.value = Project.getDueDate(taskName, task.parentProject);
         } else {
@@ -88,7 +88,18 @@ export default class TaskDisplay {
             let taskName = parent.querySelector('.task-name').textContent;
             // update the project's due date
             let newDate = dateInput.value;
-            Project.updateDueDate(taskName, getLocation(), newDate);
+            // if the user is currently on the today or this week tab delete the task from the tasks' parent project
+            if (getLocation() == "Today" || getLocation == "This-week") {
+                // get the parent project
+                let parentText = parent.querySelector(".parent-project").textContent;
+                parentText = parentText.substring(1, parentText.length-1);
+                // delete the task from local storage from the parentProject
+                Project.updateDueDate(taskName, parentText, newDate);
+                // re dislpay the tasks, so that the date was changed out of range, it fixes it
+                this.displayTasks(getLocation);
+            } else {
+                Project.updateDueDate(taskName, getLocation(), newDate);
+            }
         })
         newTaskButton.appendChild(dateInput);
     }
