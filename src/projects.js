@@ -35,7 +35,6 @@ export default class Projects {
     static getTodayProjects() {
         // first get all of the projects
         let allProjects = this.getProjects();
-        console.log(allProjects) 
         // get today's date
         let today = new Date().toISOString().slice(0, 10);
         // find tasks that match up with todays' dates

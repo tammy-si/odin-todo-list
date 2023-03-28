@@ -10,7 +10,6 @@ export default class Project {
     static addTask(newTaskName, curr_location) {
         // get all the current projects
         let allProjects = Projects.getProjects();
-        console.log(allProjects, curr_location);
         // get the current we're on with current location
         let project = allProjects.find(project => project.name == curr_location);
         // add the task

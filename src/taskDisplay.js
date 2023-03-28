@@ -13,7 +13,6 @@ export default class TaskDisplay {
         let curr_location = getLocation();
         // changing the title
         projectTitle.textContent = curr_location;
-        console.log(curr_location);
         // get the project based off of that location and display all the tasks
         if (curr_location == "Today") {
             var project = Projects.getTodayProjects();
