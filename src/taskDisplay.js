@@ -67,7 +67,6 @@ export default class TaskDisplay {
             // then delete from DOM
             parent.remove();
         });
-        newTaskButton.appendChild(checkbox);
 
         // making the date input
         let dateInput = document.createElement("input")
@@ -100,6 +99,7 @@ export default class TaskDisplay {
             }
         })
         newTaskButton.appendChild(dateInput);
+        newTaskButton.appendChild(checkbox);
     }
 
 }

@@ -79,3 +79,22 @@ header {
 }
 
 /* Task display specific */
+.project-area {
+    padding: 10px;
+}
+
+.task-list {
+    display: grid;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.task-button {
+    display: flex;
+    flex: 1;
+    align-items: center;
+}
+
+.task-button input {
+    margin-left: auto;
+}
