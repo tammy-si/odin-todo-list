@@ -53,4 +53,36 @@ export default class Projects {
         dummy.tasks = todayProjects;
         return dummy;
     }
+
+    static getWeekProjects() {
+        // first get all of the projects
+        let allProjects = this.getProjects();
+        let weekDates = [];
+        // gets dates for the next 7 days
+        for (let i = 0; i <= 7; i++) {
+            let currentDate = new Date();
+            currentDate.setDate(currentDate.getDate() + i);
+            weekDates.push(currentDate.toISOString().slice(0, 10));
+        }
+        
+        var weekProjects = [];
+        // look thorugh all projects and the tasks for each to see if they're one of the 7 days
+        for (let i = 0; i < allProjects.length; i++) {
+            for (let j = 0; j < allProjects[i].tasks.length; j++) {
+                if (weekDates.includes(allProjects[i].tasks[j].dueDate)) {
+                    weekProjects.push(allProjects[i].tasks[j]);
+                }
+            }
+        }
+
+        // sorting the projects so that the more urgent comes first
+        weekProjects.sort(function(a,b) {
+            // comparing the ISO dates
+            return a.dueDate > b.dueDate ? 1 : a.dueDate < b.dueDate ? -1 : 0;
+        });
+        // return a project with tasks set to the tasks we just found
+        let dummy = new Project();
+        dummy.tasks = weekProjects;
+        return dummy;
+    }
 }

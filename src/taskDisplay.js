@@ -18,8 +18,7 @@ export default class TaskDisplay {
         if (curr_location == "Today") {
             var project = Projects.getTodayProjects();
         } else if (curr_location == "This-week") {
-            console.log("This week")
-            var project = Projects.find(curr_location);
+            var project = Projects.getWeekProjects();
         } else {
             var project = Projects.find(curr_location);
         }
@@ -43,7 +42,7 @@ export default class TaskDisplay {
         checkbox.type = "checkbox";
 
         // show the parent project
-        if (getLocation() == "Today" || getLocation == "This-week") {
+        if (getLocation() == "Today" || getLocation() == "This-week") {
             var parentText = document.createElement("p");
             parentText.textContent = `(${task.parentProject})`;
             parentText.classList.add("parent-project")
@@ -56,7 +55,7 @@ export default class TaskDisplay {
             // get the task name from the p tag 
             let taskName = parent.querySelector('.task-name').textContent;
             // if the user is currently on the today or this week tab delete the task from the tasks' parent project
-            if (getLocation() == "Today" || getLocation == "This-week") {
+            if (getLocation() == "Today" || getLocation() == "This-week") {
                 // get the parent project
                 let parentText = parent.querySelector(".parent-project").textContent;
                 parentText = parentText.substring(1, parentText.length-1);
@@ -75,7 +74,7 @@ export default class TaskDisplay {
         let dateInput = document.createElement("input")
         dateInput.type = "date";
         // get from the parent Project instead if it's today or this week to find the task's due date
-        if (getLocation() == "Today" || getLocation == "This-week") {
+        if (getLocation() == "Today" || getLocation() == "This-week") {
             dateInput.value = Project.getDueDate(taskName, task.parentProject);
         } else {
             // instead look for the task in whatever project we're in
@@ -89,7 +88,7 @@ export default class TaskDisplay {
             // update the project's due date
             let newDate = dateInput.value;
             // if the user is currently on the today or this week tab delete the task from the tasks' parent project
-            if (getLocation() == "Today" || getLocation == "This-week") {
+            if (getLocation() == "Today" || getLocation() == "This-week") {
                 // get the parent project
                 let parentText = parent.querySelector(".parent-project").textContent;
                 parentText = parentText.substring(1, parentText.length-1);
