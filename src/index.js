@@ -70,16 +70,29 @@ addProjectButton.addEventListener('click', () => {
 // handling the addProject form  add
 add.addEventListener("click", () => {
     let newName = document.querySelector(".projectNameInput").value;
+    // make sure that the project name doesn't alrady exist, if it does, give an alert error
+    if (Projects.find(newName)) {
+        alert("Error. That project already exists.")
+        return;
+    } else if (newName.length == 0){
+        alert("Error. No empty names allowed.")
+        return;
+    }
     // make a new project and put it into the array
     Projects.add(newName);
     // also make sure to add to display, pass in a way to keep track of what project we're on
     ProjectsDisplay.addAProj(newName, globals.changeLocation, globals.getLocation);
+
+    // here we clear the input box for projects
+    document.querySelector(".projectNameInput").value = "";
     // hide the form and show the button
     addProjectButton.classList.toggle("clicked");
     addProjectForm.classList.toggle("show");
 })
 
 cancel.addEventListener("click", () => {
+    // here we clear the input box for projects
+    document.querySelector(".projectNameInput").value = "";
     // hide the form and show the button
     addProjectButton.classList.toggle("clicked");
     addProjectForm.classList.toggle("show");
@@ -103,15 +116,28 @@ addTaskButton.addEventListener('click', () => {
 // handling the addTask form  add
 addTask.addEventListener("click", () => {
     let newTaskName = document.querySelector(".taskNameInput").value;
+    // make sure the project we're in doesn't already have a task with this name
+    if (Project.taskInProject(newTaskName, globals.getLocation())) {
+        alert("Error. No tasks with same name in one project allowed.")
+        return;
+    } else if (newTaskName.length == 0){
+        alert("Error. No empty task name allowed.")
+        return;
+    }
     Project.addTask(newTaskName, globals.getLocation());
     // add the task with display
     TaskDisplay.addATask(newTaskName, globals.getLocation);
+
+    // here we clear the input box
+    document.querySelector(".taskNameInput").value = "";
     // hide the form and show the button
     addTaskButton.classList.toggle("clicked");
     addTaskForm.classList.toggle("show");
 })
 
 cancelTask.addEventListener("click", () => {
+    // here we clear the input box for task
+    document.querySelector(".taskNameInput").value = "";
     // hide the form and show the button
     addTaskButton.classList.toggle("clicked");
     addTaskForm.classList.toggle("show");

@@ -30,6 +30,17 @@ export default class Project {
         localStorage.setItem("allProjects", JSON.stringify(allProjects));
     }
 
+    static taskInProject(newTaskName, curr_location) {
+        // get the project we're in and check if the task already exists
+        let project = Projects.find(curr_location);
+        for (let i = 0; i < project.tasks.length; i++) {
+            if (project.tasks[i].name == newTaskName) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     static getDueDate(taskName, projectUpdateFrom) {
         let allProjects = Projects.getProjects();
         for (let i = 0; i < allProjects.length; i++) {
