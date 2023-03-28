@@ -13,8 +13,16 @@ export default class TaskDisplay {
         let curr_location = getLocation();
         // changing the title
         projectTitle.textContent = curr_location;
+        console.log(curr_location);
         // get the project based off of that location and display all the tasks
-        let project = Projects.find(curr_location);
+        if (curr_location == "Today") {
+            var project = Projects.getTodayProjects();
+        } else if (curr_location == "This-week") {
+            console.log("This week")
+            var project = Projects.find(curr_location);
+        } else {
+            var project = Projects.find(curr_location);
+        }
         // now loop through all the tasks of the project and make some task button
         project.tasks.forEach(task => this.addATask(task.name, getLocation));
     }

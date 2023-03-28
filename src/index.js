@@ -42,12 +42,14 @@ document.querySelector("#inboxButton").addEventListener("click", () => {
 document.querySelector("#todayButton").addEventListener("click", () => {
     projectTitle.textContent = "Today";
     globals.changeLocation("Today");
+    TaskDisplay.displayTasks(globals.getLocation);
     document.querySelector(".addTaskButton").classList.add("clicked");
 });
 
 document.querySelector("#weekButton").addEventListener("click", () => {
     projectTitle.textContent = "This week";
     globals.changeLocation("This-week");
+    TaskDisplay.displayTasks(globals.getLocation);
     document.querySelector(".addTaskButton").classList.add("clicked");
 });
 

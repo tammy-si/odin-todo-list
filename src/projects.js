@@ -31,4 +31,26 @@ export default class Projects {
         let allProjects = this.getProjects();
         return allProjects.find(project => project.name == projectName);
     }
+
+    static getTodayProjects() {
+        // first get all of the projects
+        let allProjects = this.getProjects();
+        console.log(allProjects) 
+        // get today's date
+        let today = new Date().toISOString().slice(0, 10);
+        // find tasks that match up with todays' dates
+        let todayProjects = []
+        // look thorugh all projects and the tasks for each
+        for (let i = 0; i < allProjects.length; i++) {
+            for (let j = 0; j < allProjects[i].tasks.length; j++) {
+                if (allProjects[i].tasks[j].dueDate == today) {
+                    todayProjects.push(allProjects[i].tasks[j]);
+                }
+            }
+        }
+        // return a project with tasks set to the tasks we just found
+        let dummy = new Project();
+        dummy.tasks = todayProjects;
+        return dummy;
+    }
 }
