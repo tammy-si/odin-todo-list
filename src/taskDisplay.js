@@ -24,14 +24,17 @@ export default class TaskDisplay {
             var project = Projects.find(curr_location);
         }
         // now loop through all the tasks of the project and make some task button
-        project.tasks.forEach(task => this.addATask(task.name, getLocation));
+        project.tasks.forEach(task => this.addATask(task.name, getLocation, task));
     }
 
-    static addATask(taskName, getLocation) {
+    // task is an optional parameter for when we have to display tasks, not add.
+    // when displaying existing tasks we have to pass in the actual task object
+    static addATask(taskName, getLocation, task = null) {
         let newTaskButton = document.createElement("button");
         newTaskButton.classList.add("task-button")
         let buttonText = document.createElement("p");
         buttonText.textContent = taskName;
+        buttonText.classList.add("task-name")
         newTaskButton.appendChild(buttonText);
         projectTaskList.appendChild(newTaskButton);
 
@@ -39,11 +42,19 @@ export default class TaskDisplay {
         let checkbox = document.createElement("input");
         checkbox.type = "checkbox";
 
+        // show the parent project
+        if (getLocation() == "Today" || getLocation == "This-week") {
+            let parentText = document.createElement("p");
+            parentText.textContent = `(${task.parentProject})`;
+            newTaskButton.appendChild(parentText)
+        }
+
         // make the deleteButton have dele functionality
         checkbox.addEventListener("click", (e) => {
             let parent = e.target.parentNode;
             // get the task name from the p tag 
-            let taskName = parent.querySelector('p').textContent;
+            let taskName = parent.querySelector('.task-name').textContent;
+            // if the user is currently on the today or this week tab delete the task from the parent project
             // delete from local storage, by calling the class method for Task in project
             Project.deleteTask(taskName, getLocation());
             // then delete from DOM
@@ -59,7 +70,7 @@ export default class TaskDisplay {
         dateInput.addEventListener("change", (e) => {
             let parent = e.target.parentNode;
             // get the task name from the p tag 
-            let taskName = parent.querySelector('p').textContent;
+            let taskName = parent.querySelector('.task-name').textContent;
             // update the project's due date
             let newDate = dateInput.value;
             Project.updateDueDate(taskName, getLocation(), newDate);
