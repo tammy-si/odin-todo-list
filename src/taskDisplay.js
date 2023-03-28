@@ -44,7 +44,7 @@ export default class TaskDisplay {
 
         // show the parent project
         if (getLocation() == "Today" || getLocation == "This-week") {
-            let parentText = document.createElement("p");
+            var parentText = document.createElement("p");
             parentText.textContent = `(${task.parentProject})`;
             parentText.classList.add("parent-project")
             newTaskButton.appendChild(parentText)
@@ -74,7 +74,13 @@ export default class TaskDisplay {
         // making the date input
         let dateInput = document.createElement("input")
         dateInput.type = "date";
-        dateInput.value = Project.getDueDate(taskName, getLocation());
+        // get from the parent Project instead if it's today or this week
+        if (getLocation() == "Today" || getLocation == "This-week") {
+            dateInput.value = Project.getDueDate(taskName, task.parentProject);
+        } else {
+            // instead look for the task in whatever project we're in
+            dateInput.value = Project.getDueDate(taskName, getLocation());
+        }
 
         dateInput.addEventListener("change", (e) => {
             let parent = e.target.parentNode;
