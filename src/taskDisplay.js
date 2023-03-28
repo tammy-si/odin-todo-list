@@ -46,6 +46,7 @@ export default class TaskDisplay {
         if (getLocation() == "Today" || getLocation == "This-week") {
             let parentText = document.createElement("p");
             parentText.textContent = `(${task.parentProject})`;
+            parentText.classList.add("parent-project")
             newTaskButton.appendChild(parentText)
         }
 
@@ -54,9 +55,17 @@ export default class TaskDisplay {
             let parent = e.target.parentNode;
             // get the task name from the p tag 
             let taskName = parent.querySelector('.task-name').textContent;
-            // if the user is currently on the today or this week tab delete the task from the parent project
-            // delete from local storage, by calling the class method for Task in project
-            Project.deleteTask(taskName, getLocation());
+            // if the user is currently on the today or this week tab delete the task from the tasks' parent project
+            if (getLocation() == "Today" || getLocation == "This-week") {
+                // get the parent project
+                let parentText = parent.querySelector(".parent-project").textContent;
+                parentText = parentText.substring(1, parentText.length-1);
+                // delete the task from local storage from the parentProject
+                Project.deleteTask(taskName, parentText);
+            } else {
+                // delete from local storage, by calling the class method for Task in project
+                Project.deleteTask(taskName, getLocation());
+            }
             // then delete from DOM
             parent.remove();
         });
